@@ -1,0 +1,16 @@
+{
+  "name": "dev-tinder-backend",
+  "version": "1.0.0",
+  "description": "Backend for dev tinder in nodejs",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Lalit Barwal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
