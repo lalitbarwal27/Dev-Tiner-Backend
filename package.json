@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for dev tinder in nodejs",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
   "keywords": [
     "nodejs",
     "javascript"
