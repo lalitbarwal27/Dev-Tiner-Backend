@@ -1,72 +1,35 @@
 const express = require("express");
-
+const { authMiddleware } = require("./utils/middleware");
 const app = express();
+const connect = require("./config/database");
+const User = require("./models/user");
 
-// here ? means that b is optional
+app.post("/signup", async (req, res, next) => {
+  //Creating a new instanse of User model
+  const user = new User({
+    firstName: "Lalit",
+    lastName: "Barwal",
+    age: 26,
+    email: "lalitbarwal27@gmail.com",
+    gender: "Male",
+    password: "Lalit@27",
+  });
 
-app.get("/ab?c", (req, res) => {
-  res.send("Getting User details");
+  try {
+    await user.save();
+    res.status(200).send("User saved successfully");
+  } catch (err) {
+    res.status(400).send("Error in Saving User" + err.message);
+  }
 });
 
-// here * means that in place of * anything can come in route
-
-app.get("/ab*cd", (req, res) => {
-  res.send("Getting User details");
-});
-
-// here + means that you can add any number of b but should end with c
-
-app.get("/ab+c", (req, res) => {
-  res.send("Getting User details");
-});
-
-//to get params in the route
-
-app.get("/user/:userId/:password", (req, res) => {
-  console.log(req.params);
-  res.send("Getting User details");
-});
-
-//to get querry in the route
-app.get("/user", (req, res) => {
-  console.log(req.query);
-  res.send("Getting User details");
-});
-
-//Get Method
-
-app.get("/user", (req, res) => {
-  res.send("Getting User details");
-});
-
-//Post Method
-
-app.post("/user", (req, res) => {
-  res.send("Posting User details");
-});
-
-//Delete Method
-
-app.delete("/user", (req, res) => {
-  res.send("Deleting User details");
-});
-
-//Put Method
-
-app.put("/user", (req, res) => {
-  res.send("Updating User details");
-});
-
-//Patch Method
-
-app.patch("/user", (req, res) => {
-  res.send("Updating using patch User details");
-});
-
-app.use("/hello", (req, res) => {
-  res.send("Hello from the hello route");
-});
-
-app.listen(7777, () => {
-  console.log("Server is listening on port 7777");
-});
+connect()
+  .then(() => {
+    console.log("connected To Database successfully");
+    app.listen(7777, () => {
+      console.log("Server is listening on port 7777");
+    });
+  })
+  .catch((err) => {
+    console.log("Cannot connect to database");
+  });
