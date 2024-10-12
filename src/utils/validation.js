@@ -21,7 +21,17 @@ const userSignInValidation = (req) => {
   }
 };
 
+const userProfileUpdateValidation = (req) => {
+  const ALLOWED_FIELDS = ["photoUrl", "skills", "age", "about"];
+
+  const isAllowed = Object.keys(body).every((item) =>
+    ALLOWED_FIELDS.includes(item)
+  );
+
+  return isAllowed;
+};
 module.exports = {
   userSignUpValidation,
   userSignInValidation,
+  userProfileUpdateValidation,
 };
